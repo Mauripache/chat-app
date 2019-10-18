@@ -1,16 +1,25 @@
 <template>
-    <div class="dropper">
-        <input type="file" multiple accept="image/*" @change="uploadImages($event.target.files)"/>
-        <span>Drag files here!</span>
+    <div class="ui segment">
+        <div class="ui active dimmer" v-if="isUploading">
+            <div class="ui text loader">Uploading images, please wait...</div>
+        </div>
+        <div class="dropper">
+            <input type="file" multiple accept="image/*" @change="uploadImages($event.target.files)"/>
+            <span>Drag files here!</span>
+        </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'UploadForm',
-    methods: mapActions(['uploadImages'])
+    computed: mapGetters(['isUploading']),
+    methods: mapActions(['uploadImages','setUploading']),
+    created() {
+        this.setUploading(false);
+    }
 }
 </script>
 

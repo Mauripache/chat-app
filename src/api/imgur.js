@@ -33,5 +33,16 @@ export default {
         });
 
         return Promise.all(promises);
+    },
+    deleteImages(images, token) {   
+        const promises = Array.from(images).map(image => {
+            return axios.delete(`${ROOT_URL}/3/image/${image.deletehash}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        });
+
+        return Promise.all(promises);
     }
 };
